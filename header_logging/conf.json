@@ -1,0 +1,20 @@
+{
+	"access_log": {
+		"path": "/dev/stdout",
+		"format": "`@timestamp=${new Date().toISOString()} ip=${remoteAddr} uri=${uri} ${Object.keys(headers).map(k => 'req.' + k + '=\"' + headers[k] + '\"').join(' ')}\n`"
+	},
+
+	"listeners": {
+		"*:9000": {
+			"pass": "routes"
+		}
+	},
+
+	"routes": [
+		{
+			"action": {
+				"return": 204
+			}
+		}
+	]
+}
