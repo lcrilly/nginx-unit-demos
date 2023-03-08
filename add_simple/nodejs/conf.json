@@ -1,0 +1,30 @@
+{
+	"listeners": {
+		"*:9000": {
+			"pass": "routes"
+		}
+	},
+
+	"routes": [
+		{
+			"match": {
+				"uri": "/add"
+			},
+			"action": {
+				"pass": "applications/add"
+			}
+		},
+		{
+			"action": {
+				"share": "html$uri"
+			}
+		}
+	],
+
+	"applications": {
+		"add": {
+			"type": "external",
+			"executable": "nodejs/add.js"
+		}
+	}
+}

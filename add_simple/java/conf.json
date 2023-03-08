@@ -1,0 +1,30 @@
+{
+	"listeners": {
+		"*:9000": {
+			"pass": "routes"
+		}
+	},
+
+	"routes": [
+		{
+			"match": {
+				"uri": "/add"
+			},
+			"action": {
+				"pass": "applications/add"
+			}
+		},
+		{
+			"action": {
+				"share": "html$uri"
+			}
+		}
+	],
+
+	"applications": {
+		"add": {
+			"type": "java",
+			"webapp": "java/add-0.0.1-SNAPSHOT.war"
+		}
+	}
+}
