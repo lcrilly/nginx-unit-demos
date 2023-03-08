@@ -259,13 +259,13 @@ extensions: [terminal]
 
 ---
 
-# Common challenges
+# The problem with web frameworks
 
-### 🎨 Serving static files is non-trivial
+### 🚏 Split routing, and serving of static+dynamic content
 
-### 🚏 Routing for static and dynamic content needs a reverse proxy
+### 🔐 TLS at the runtime is challenging
 
-### 🔐 TLS management is complex
+### 🔧 Configuring a web server and application process manager
 
 ### 🐳 Complex containers and the multi-daemon anti-pattern
 
@@ -292,17 +292,17 @@ extensions: [terminal]
 ```json
 {
   "listeners": {
-    "*:8080": {
-      "pass": "routes"
+    "*:8080": {                       // Listen for new TCP connections
+      "pass": "routes"                // Send all HTTP requests to the router
     }
   },
 
   "routes": [
-    {
+    {                                 // A single route to catch everything
       "action": {
-        "share": "/var/www$uri",
-        "fallback": {
-          "pass": "applications/calc"
+        "share": "/var/www$uri",      // Serve the requested URI from disk,
+        "fallback": {                 // but if that doesn't exist then,
+          "pass": "applications/calc" // send the request to the app.
         }
       }
     }
@@ -310,12 +310,39 @@ extensions: [terminal]
 
   "applications": {
     "calc": {
-      "type": "python",
-      "path": "/var/www/apps/calc",
-      "module": "calculator"
+      "type": "python",               // Specify the language module
+      "path": "/var/www/apps/calc",   // Directory where the code is
+      "module": "calculator"          // For Python, the module name
     }
   }
 }
+```
+
+---
+
+# Flexible configuration that spans network and runtime
+
+## Infrastructure as code for the entire stack
+
+```
+┌──────────────────┐                                                           ┌───────────┐
+│                  │ ───────────────────────────[pass]───────────────────────> │           │
+│                  │             ┌────────────┐                                │ upstreams │
+│                  │             │            │ ────────────[proxy]──────────> │           │
+│     listeners    │ ──[pass]──> │            │                                └───────────┘
+│                  │             │            │              ┌────────────────┐
+│                  │             │   routes   │ ──[share]──> │ /files/on/disk │
+│                  │             │            │              └────────────────┘
+│                  │             │            │              ┌────────────────┐
+│  ┏━━━━━━━━━━━━┓  │             │            │ ──[pass]───> │                │
+│  ┃certificates┃  │             └────────────┘              │  applications  │
+│  ┗━━━━━━━━━━━━┛  │ ────────────────[pass]────────────────> │                │
+│                  │                                         └────────────────┘
+└──────────────────┘
+```
+```
+    LAYER 4-6                       LAYER 7                      USER SPACE         LAYER 7
+  TCP/TLS/ports                  Headers, URIs                   Code/Files        IP/Ports
 ```
 
 ---
