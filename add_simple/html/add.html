@@ -1,0 +1,70 @@
+<head>
+    <title>Add with Unit</title>
+    <script>
+        var payload = {}; payload.operands = [];
+        var xhr = new XMLHttpRequest();
+        xhr.addEventListener("load", showResult);
+        function toggle(n) {
+            payload.operands.push(n);
+            xhr.open('POST', '/add');
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(JSON.stringify(payload));
+        }
+        function showResult() {
+            document.getElementById('val').value = JSON.parse(xhr.responseText).result;
+        }
+    </script>
+    <style>
+        .but {
+            color: #202020;
+            background-color: #f0f0f0;
+            background: #f0f0f0;
+            font-size: 20pt;
+            text-align: center;
+            transition-duration: 0.1s;
+            box-shadow: 0 5px #606060;
+            border: 1px solid #202020;
+            border-radius: 8px;
+        }
+        .but:hover {
+            color: #404040;
+            background: #f0f0f0;
+            background-color: #f0f0f0;
+        }
+        .but:active {
+            box-shadow: 0 2px #606060;
+            transform: translateY(3px);
+        }
+        input[type=text] {
+            background: #f0f0f0;
+            border: 2px solid #202020;
+            width: 180pt;
+            padding: 5px;
+            font-size: 24pt;
+            text-align: right;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Add with Unit!</h1>
+    Press the numbers to add them together!
+    <form name=calc id=cal>
+    <p>
+        <button type=button class="but" onClick="toggle(1)">1</button>
+        <button type=button class="but" onClick="toggle(2)">2</button>
+        <button type=button class="but" onClick="toggle(3)">3</button>
+        <button type=button class="but" onClick="toggle(5)">5</button>
+        <button type=button class="but" onClick="toggle(8)">8</button>
+        <button type=button class="but" onClick="toggle(13)">13</button>
+        <button type=button class="but" onClick="toggle(21)">21</button>
+        <button type=button class="but" onClick="toggle(34)">34</button>
+        <button type=button class="but" onClick="toggle(55)">55</button>
+        <button type=button class="but" onClick="toggle(89)">89</button>
+        <button type=button class="but" onClick="toggle(144)">144</button>
+    </p>
+    <p>
+        <input id=val readonly type=text value=0>
+    </p>
+    </form>
+</body>
