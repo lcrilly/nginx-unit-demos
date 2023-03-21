@@ -48,8 +48,8 @@ $ cat python/conf.json | jq
 $ cat python/conf.json | unitc /config
 ```
 
-Demo: Application
------------------
+Demo: Application (CLI)
+-----------------------
 
 1. Show the HTML on disk, then serve it through Unit
 ```shell
@@ -74,3 +74,13 @@ For fun with [floating point rounding errors](https://0.30000000000000004.com/),
     "operands": [0.1, 0.2]
 }
 ```
+
+Demo: Application (browser)
+---------------------------
+
+1. Browse to http://localhost:9000/add.html
+2. Open developer tools to show network activity
+3. Press some numbers on the Fibonacci sequence to have the browser make requests to the **/add* URI
+4. Inspect one of the requests to see the request/response headers and payload
+5. View the HTML source to see the simple JavaScript query
+6. Remark on how Unit is the only thing doing all the work
