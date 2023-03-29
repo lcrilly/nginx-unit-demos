@@ -2,7 +2,7 @@
 	"listeners": {
 		"*:9000": {
 			"pass": "routes"
-		},
+		}
 	},
 
 	"routes": [
