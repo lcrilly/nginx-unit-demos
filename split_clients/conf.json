@@ -1,0 +1,40 @@
+{
+    "listeners": {
+        "*:9000": {
+            "pass": "routes/entry"
+        }
+    },
+
+    "routes": {
+    	"entry": [
+    		{
+	    		"action": {
+    				"pass": "`routes/${split.clients(0.7, headers['User-Agent'])}`"
+    			}
+    		}
+    	],
+
+    	"blue": [
+    		{
+	    		"action": {
+    				"share": "blue$uri"
+    			}
+    		}
+    	],
+
+    	"green": [
+    		{
+    			"action": {
+    				"share": "green$uri"
+    			}
+    		}
+    	]
+    },
+
+    "settings": {
+    	"js_module": "split",
+        "http": {
+        	"log_route": true
+        }
+    }
+}
