@@ -36,5 +36,6 @@
         "http": {
         	"log_route": true
         }
-    }
+    },
+    "access_log": "/dev/stdout"
 }
