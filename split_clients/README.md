@@ -24,7 +24,7 @@ unitd --no-daemon --log /dev/stderr &
 2. Upload the JavaScript module
 ```shell
 cat split.js
-cat split.js | unitc /js_modules
+cat split.js | unitc /js_modules/split
 ```
 
 3. Apply the configuration using the `unitc` tool. Note that router logging

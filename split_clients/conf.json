@@ -1,19 +1,11 @@
 {
     "listeners": {
         "*:9000": {
-            "pass": "routes/entry"
+        	"pass": "`routes/${split.clients(0.7, headers['User-Agent'])}`"
         }
     },
 
     "routes": {
-    	"entry": [
-    		{
-	    		"action": {
-    				"pass": "`routes/${split.clients(0.7, headers['User-Agent'])}`"
-    			}
-    		}
-    	],
-
     	"blue": [
     		{
 	    		"action": {
