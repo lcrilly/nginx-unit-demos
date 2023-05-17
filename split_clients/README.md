@@ -49,7 +49,7 @@ wget -O- localhost:9000
 
 3. Set the proportion of User-Agents that will receive the green response to 25%
 ```shell
-echo "\"\`routes/\${split.clients(0.25, headers['User-Agent'])}\`\"" | unitc /config/routes/entry/0/action/pass
+echo "\"\`routes/\${split.clients(0.25, headers['User-Agent'])}\`\"" | unitc /config/listeners/\*:9000/pass
 ```
 
 4. Use other HTTP clients (e.g. HTTPie) to demonstrate the effect of User Agent
