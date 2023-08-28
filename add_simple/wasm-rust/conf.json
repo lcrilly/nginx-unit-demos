@@ -1,0 +1,35 @@
+{
+	"listeners": {
+		"*:9000": {
+			"pass": "routes"
+		}
+	},
+
+	"routes": [
+		{
+			"match": {
+				"uri": "/add"
+			},
+			"action": {
+				"pass": "applications/add"
+			}
+		},
+		{
+			"action": {
+				"share": "html$uri"
+			}
+		}
+	],
+
+    "applications": {
+        "add": {
+            "type": "wasm",
+            "module": "wasm-rust/add/target/wasm32-wasi/debug/add.wasm",
+            "request_handler": "uwr_request_handler",
+            "malloc_handler": "luw_malloc_handler",
+            "free_handler": "luw_free_handler",
+            "module_init_handler": "uwr_module_init_handler",
+            "module_end_handler": "uwr_module_end_handler"
+        }
+    }
+}
