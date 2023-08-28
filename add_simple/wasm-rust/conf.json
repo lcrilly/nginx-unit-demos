@@ -24,7 +24,7 @@
     "applications": {
         "add": {
             "type": "wasm",
-            "module": "wasm-rust/add/target/wasm32-wasi/debug/add.wasm",
+            "module": "wasm-rust/add.wasm",
             "request_handler": "uwr_request_handler",
             "malloc_handler": "luw_malloc_handler",
             "free_handler": "luw_free_handler",
