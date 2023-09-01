@@ -1,6 +1,5 @@
 use serde_json::Value;
 use unit_wasm::rusty::*;
-use std::ffi::CStr;
 use std::ptr::null_mut;
 
 // Buffer of some size to store the copy of the request
@@ -32,12 +31,8 @@ pub extern "C" fn uwr_request_handler(addr: *mut u8) -> i32 {
         uwr_set_req_buf(ctx, &mut REQUEST_BUF, LUW_SRB_NONE);
     }
 
-    // Get the request body
-    let raw_body = unsafe { CStr::from_ptr(uwr_get_http_content(ctx) as *mut i8) };
-    let req_body = String::from_utf8_lossy(raw_body.to_bytes()).to_string();
-
-    // Deserialize the JSON string into a JSON object
-    let json_object: Value = serde_json::from_str(&req_body).unwrap();
+    // Deserialize the request body into a JSON object
+    let json_object: Value = serde_json::from_str(uwr_get_http_content_str(ctx)).unwrap();
 
     // Access the "operands" field and iterate over the array of numbers.
     if let Some(operands) = json_object.get("operands") {

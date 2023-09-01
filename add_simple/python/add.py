@@ -9,5 +9,5 @@ def application(environ, start_response):
     for value in request_json['operands']:
         response['result'] += value
     
-    start_response('200 OK', [('Content-Type', 'application/json')])
+    start_response('200 OK', [('Content-Type', 'application/json'), ('Server', 'mathematics'), ('Expires', '0')])
     yield str.encode(json.dumps(response))
