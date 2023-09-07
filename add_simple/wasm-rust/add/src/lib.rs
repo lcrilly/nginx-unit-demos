@@ -51,7 +51,7 @@ pub extern "C" fn uwr_request_handler(addr: *mut u8) -> i32 {
     // Prepare the response headers
     uwr_http_init_headers(ctx, 2, 0);
     uwr_http_add_header(ctx, "Content-Type", "application/json");
-    uwr_http_add_header(ctx, "Content-Length", &format!("{}", uwr_get_response_data_size(ctx)));
+    uwr_http_add_header_content_len(ctx);
 
     // Send the full response
     uwr_http_send_headers(ctx);
